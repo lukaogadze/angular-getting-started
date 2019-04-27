@@ -38,11 +38,15 @@
                     <td>
                         <img *ngIf="showImage" class="image" [src]="product.imageUrl" [alt]="product.name" [title]="product.name">
                     </td>
-                    <td [textContent]="product.name"></td>
+                    <td>
+                        <a [routerLink]="['/products', product.id]" [textContent]="product.name"></a>
+                    </td>
                     <td [textContent]="product.code | lowercase | convertToSpaces: '-'"></td>
                     <td [textContent]="product.releaseDate"></td>
                     <td [textContent]="product.price | currency:'USD':'symbol':'1.2-2'"></td>
-                    <td [textContent]="product.starRating"></td>
+                    <td>
+                        <pm-star [rating]="product.starRating" (ratingClicked)="onRatingClicked($event)"></pm-star>
+                    </td>
                 </tr>
                 </tbody>
             </table>

@@ -1,17 +1,17 @@
-import {Component} from '@angular/core';
-import {products} from '../../../api/products/products.data';
-import {ProductListModel} from './product-list.model';
+import {Component, OnInit} from '@angular/core';
+import {ProductModel} from '../product.model';
+import {ProductService} from '../product.service';
 
 @Component({
-    selector: 'pm-products',
     templateUrl: './product-list.component.html',
     styleUrls: ['./product-list.component.scss']
 })
-export class ProductListComponent {
-    readonly title: string;
-    readonly products: ReadonlyArray<ProductListModel>;
+export class ProductListComponent implements OnInit {
+    title: string;
     showImage: boolean;
-    filteredProducts: ReadonlyArray<ProductListModel> | undefined;
+    errorMessage: string | undefined;
+    products: ReadonlyArray<ProductModel> | undefined;
+    filteredProducts: ReadonlyArray<ProductModel> | undefined;
 
     private _listFilter: string;
     get listFilter(): string {
@@ -23,10 +23,8 @@ export class ProductListComponent {
         this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
     }
 
-    constructor() {
+    constructor(private readonly _productService: ProductService) {
         this.title = 'Product List';
-        this.products = products;
-        this.filteredProducts = this.products;
         this.showImage = false;
         this._listFilter = '';
     }
@@ -35,9 +33,21 @@ export class ProductListComponent {
         this.showImage = !this.showImage;
     }
 
-    private performFilter(filter: string): ReadonlyArray<ProductListModel> {
+
+    private performFilter(filter: string): ReadonlyArray<ProductModel> {
         const filterBy = filter.toLocaleLowerCase();
-        const filteredProducts = this.products.filter(x => x.name.toLocaleLowerCase().indexOf(filterBy) !== -1);
+        const filteredProducts = this.products!.filter(x => x.name.toLocaleLowerCase().indexOf(filterBy) !== -1);
         return filteredProducts;
+    }
+
+    onRatingClicked(message: string): void {
+        this.title = `Product List: ${message}`;
+    }
+
+    ngOnInit(): void {
+        this._productService.getProducts().subscribe(products => {
+                this.products = products;
+                this.filteredProducts = this.products;
+            }, err => this.errorMessage = err);
     }
 }

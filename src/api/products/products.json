@@ -1,6 +1,4 @@
-import {environment} from '../../environments/environment';
-
-export const products: ReadonlyArray<any> = [
+[
     {
         "id": 1,
         "name": "Leaf Rake",
@@ -9,7 +7,7 @@ export const products: ReadonlyArray<any> = [
         "description": "Leaf rake with 48-inch wooden handle.",
         "price": 19.95,
         "starRating": 3.2,
-        "imageUrl": `${environment.baseUrl}/assets/images/Leaf_Rake.png`
+        "imageUrl": "../../assets/images/Leaf_Rake.png"
     },
     {
         "id": 2,
@@ -19,7 +17,7 @@ export const products: ReadonlyArray<any> = [
         "description": "15 gallon capacity rolling garden cart",
         "price": 32.99,
         "starRating": 4.2,
-        "imageUrl": `${environment.baseUrl}/assets/images/Garden_Cart.png`
+        "imageUrl": "../../assets/images/Garden_Cart.png"
     },
     {
         "id": 5,
@@ -29,7 +27,7 @@ export const products: ReadonlyArray<any> = [
         "description": "Curved claw steel hammer",
         "price": 8.9,
         "starRating": 4.8,
-        "imageUrl": `${environment.baseUrl}/assets/images/Hammer.png`
+        "imageUrl": "../../assets/images/Hammer.png"
     },
     {
         "id": 8,
@@ -39,7 +37,7 @@ export const products: ReadonlyArray<any> = [
         "description": "15-inch steel blade hand saw",
         "price": 11.55,
         "starRating": 3.7,
-        "imageUrl": `${environment.baseUrl}/assets/images/Saw.png`
+        "imageUrl": "../../assets/images/Saw.png"
     },
     {
         "id": 10,
@@ -49,6 +47,6 @@ export const products: ReadonlyArray<any> = [
         "description": "Standard two-button video game controller",
         "price": 35.95,
         "starRating": 4.6,
-        "imageUrl": `${environment.baseUrl}/assets/images/Video_Game_Controller.png`
+        "imageUrl": "../../assets/images/Video_Game_Controller.png"
     }
-];
+]

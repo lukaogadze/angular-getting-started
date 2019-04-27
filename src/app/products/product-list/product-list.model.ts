@@ -1,7 +1,7 @@
 export class ProductListModel {
-    constructor(public readonly productId: number,
-                public readonly productName: string,
-                public readonly productCode: string,
+    constructor(public readonly id: number,
+                public readonly name: string,
+                public readonly code: string,
                 public readonly releaseDate: string,
                 public readonly description: string,
                 public readonly price: number,

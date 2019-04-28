@@ -2,7 +2,7 @@ import {Observable, throwError} from 'rxjs';
 import {ProductModel} from './product.model';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {catchError} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +11,12 @@ export class ProductService {
     private readonly _productUrl: string;
 
     constructor(private readonly _httpService: HttpClient) {
-        this._productUrl = "api/products/products.json";
+        this._productUrl = 'api/products/products.json';
+    }
+
+    getProduct(id: number): Observable<ProductModel | undefined> {
+        return this.getProducts()
+            .pipe(map(products => products.find(x => x.id == id)));
     }
 
     getProducts(): Observable<ReadonlyArray<ProductModel>> {

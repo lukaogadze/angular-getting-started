@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductModel} from '../product.model';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ProductService} from '../product.service';
 
 @Component({
     templateUrl: './product-detail.component.html',
@@ -9,28 +10,31 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class ProductDetailComponent implements OnInit {
     readonly title: string;
     product: ProductModel | undefined;
+    errorMessage: string | undefined;
 
     constructor(private readonly _activatedRoute: ActivatedRoute,
-                private readonly _router: Router) {
+                private readonly _router: Router,
+                private readonly _productService: ProductService) {
         this.title = "Product Detail"
+    }
+
+
+    ngOnInit() {
+        const param = this._activatedRoute.snapshot.paramMap.get("id");
+        if (param) {
+            const id = +param;
+            this.getProduct(id);
+        }
+    }
+
+    private getProduct(id: number): void {
+        this._productService.getProduct(id).subscribe(
+            product => this.product = product,
+            err => this.errorMessage = err
+        );
     }
 
     onBack(): void {
         this._router.navigate(["/products"]);
     }
-
-    ngOnInit() {
-        const id: number = +this._activatedRoute.snapshot.paramMap.get("id")!;
-        this.product =     {
-            "id": 5,
-            "name": "Hammer" + ` ${id}`,
-            "code": "TBX-0048",
-            "releaseDate": "May 21, 2016",
-            "description": "Curved claw steel hammer",
-            "price": 8.9,
-            "starRating": 4.8,
-            "imageUrl": "../../assets/images/Hammer.png"
-        };
-    }
-
 }

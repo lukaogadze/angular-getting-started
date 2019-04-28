@@ -16,7 +16,6 @@ export class ProductDetailGuard implements CanActivate {
             this._router.navigate(["/products"]);
             return false
         }
-
         return true;
     }
   
